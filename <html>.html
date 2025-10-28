@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة جرعة الباراسيتامول للأطفال</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- الشريط العلوي -->
+    <div class="topbar">
+        <h1>حاسبة جرعة الباراسيتامول للأطفال</h1>
+        <button id="theme-toggle" class="theme-toggle">
+            <span id="theme-text">الوضع الليلي</span>
+            <span class="theme-icon">🌙</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- قسم الإدخال -->
+        <section class="input-section">
+            <div class="method-selection">
+                <div class="radio-group">
+                    <input type="radio" id="weight-method" name="method" value="weight" checked>
+                    <label for="weight-method">حسب الوزن (كغ)</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="age-method" name="method" value="age">
+                    <label for="age-method">حسب العمر</label>
+                </div>
+            </div>
+
+            <!-- حقل إدخال الوزن -->
+            <div id="weight-input" class="input-group">
+                <label for="weight">الوزن (كغ)</label>
+                <input type="number" id="weight" min="0" step="0.1" placeholder="أدخل الوزن بالكيلوجرام">
+            </div>
+
+            <!-- حقل إدخال العمر -->
+            <div id="age-input" class="input-group hidden">
+                <label for="age">العمر</label>
+                <div class="age-input-container">
+                    <input type="number" id="age" min="0" step="0.1" placeholder="أدخل العمر">
+                    <select id="age-unit">
+                        <option value="months">أشهر</option>
+                        <option value="years">سنوات</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- جرعة الدواء -->
+            <div class="input-group">
+                <label for="dose">جرعة الدواء لكل كغ (ملغ/كغ)</label>
+                <input type="range" id="dose" min="10" max="15" step="0.5" value="12.5">
+                <div class="dose-value">
+                    <span id="dose-display">12.5</span> ملغ/كغ
+                </div>
+            </div>
+
+            <!-- تركيز العبوة -->
+            <div class="input-group">
+                <label for="concentration">تركيز العبوة</label>
+                <select id="concentration">
+                    <option value="100">100 ملغ/مل (نقط للرضّع)</option>
+                    <option value="120">120 ملغ/5مل</option>
+                    <option value="160">160 ملغ/5مل</option>
+                    <option value="250">250 ملغ/5مل</option>
+                </select>
+            </div>
+
+            <!-- أزرار الحساب والطباعة -->
+            <div class="button-group">
+                <button id="calculate-btn" class="calculate-btn">احسب الجرعة</button>
+                <button id="print-btn" class="print-btn hidden">🖨️ طباعة الوصفة</button>
+            </div>
+        </section>
+
+        <!-- قسم النتائج -->
+        <section id="results-section" class="results-section hidden">
+            <div class="results-card">
+                <h2>نتائج الحساب</h2>
+                <table class="results-table">
+                    <tr>
+                        <td>طريقة الحساب</td>
+                        <td id="method-result">-</td>
+                    </tr>
+                    <tr>
+                        <td>الوزن المستخدم (كغ)</td>
+                        <td id="weight-result">-</td>
+                    </tr>
+                    <tr>
+                        <td>الجرعة الواحدة الموصى بها</td>
+                        <td id="dose-result">-</td>
+                    </tr>
+                    <tr>
+                        <td>الحد الأقصى للجرعة الواحدة</td>
+                        <td id="max-dose-result">-</td>
+                    </tr>
+                    <tr>
+                        <td>توقيت الجرعات</td>
+                        <td id="timing-result">-</td>
+                    </tr>
+                    <tr>
+                        <td>الحد الأقصى اليومي</td>
+                        <td id="daily-max-result">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- قسم الاستخدام الطبي -->
+            <details class="medical-info">
+                <summary>الاستخدام الطبي للباراسيتامول</summary>
+                <div class="info-content">
+                    <h3>دواعي الاستعمال</h3>
+                    <ul>
+                        <li>خافض للحرارة في حالات الحمى</li>
+                        <li>مسكن للألم البسيط إلى المتوسط</li>
+                    </ul>
+                    
+                    <h3>الجرعة الموصى بها</h3>
+                    <ul>
+                        <li>للأطفال: 10-15 ملغ/كغ لكل جرعة</li>
+                        <li>كل 4-6 ساعات حسب الحاجة</li>
+                        <li>لا تتجاوز 4 جرعات في اليوم (60 ملغ/كغ/يوم)</li>
+                    </ul>
+                    
+                    <h3>التحذيرات</h3>
+                    <ul>
+                        <li>لا يستخدم للأطفال أقل من شهرين إلا تحت إشراف طبي</li>
+                        <li>يجب توخي الحذر في حالات أمراض الكبد</li>
+                        <li>الجرعات الزائدة قد تسبب تلف الكبد</li>
+                    </ul>
+                    
+                    <h3>التداخلات الدوائية</h3>
+                    <ul>
+                        <li>الأيزونيازيد (دواء السل)</li>
+                        <li>بعض أدوية الصرع (مثل كاربامازيبين)</li>
+                        <li>الوارفارين (مميع الدم)</li>
+                    </ul>
+                    
+                    <h3>تعليمات ونصائح الاستخدام المنزلي</h3>
+                    <ul>
+                        <li>يُرج الزجاجة جيدًا قبل الاستخدام</li>
+                        <li>يُقاس الدواء باستخدام المحقنة أو الكأس المرفق</li>
+                        <li>لا تضاعف الجرعة إذا نسيت إحدى الجرعات</li>
+                        <li>احفظ الدواء في درجة حرارة الغرفة بعيدًا عن الضوء</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- التنبيهات الطبية -->
+            <div class="medical-alerts">
+                <h3>تنبيهات طبية هامة</h3>
+                <ul>
+                    <li>⚠️ لا يُستخدم أكثر من 4 مرات يوميًا</li>
+                    <li>⚠️ استشر الطبيب إذا استمرت الحمى لأكثر من 3 أيام</li>
+                    <li>⚠️ لا يُستخدم للأطفال أقل من شهرين إلا تحت إشراف طبي</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- نافذة اسم الطفل للطباعة -->
+    <div id="child-name-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>أدخل اسم الطفل</h3>
+            <input type="text" id="child-name" placeholder="اسم الطفل">
+            <div class="modal-buttons">
+                <button id="confirm-print" class="confirm-btn">طباعة</button>
+                <button id="cancel-print" class="cancel-btn">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج الطباعة -->
+    <div id="print-prescription" class="print-prescription hidden">
+        <div class="prescription-header">
+            <h2>وصفة طبية - باراسيتامول</h2>
+            <p>تاريخ: <span id="print-date"></span></p>
+        </div>
+        
+        <div class="patient-info">
+            <h3>معلومات المريض</h3>
+            <p>اسم الطفل: <span id="print-child-name"></span></p>
+            <p>الوزن المستخدم: <span id="print-weight"></span> كغ</p>
+            <p>طريقة الحساب: <span id="print-method"></span></p>
+        </div>
+        
+        <div class="prescription-details">
+            <h3>تفاصيل الجرعة</h3>
+            <p>تركيز الدواء: <span id="print-concentration"></span></p>
+            <p>الجرعة الواحدة: <span id="print-dose"></span></p>
+            <p>التكرار: كل 4-6 ساعات</p>
+            <p>الحد الأقصى اليومي: <span id="print-daily-max"></span></p>
+        </div>
+        
+        <div class="instructions">
+            <h3>تعليمات هامة</h3>
+            <ul>
+                <li>يُرج الزجاجة جيدًا قبل كل استخدام</li>
+                <li>يُقاس الدواء بالمحقنة المرفقة أو الكأس المدرج</li>
+                <li>لا تضاعف الجرعات في حالة نسيان جرعة</li>
+                <li>لا تتجاوز 4 جرعات في اليوم الواحد</li>
+                <li>استشر الطبيب إذا استمرت الأعراض لأكثر من 3 أيام</li>
+            </ul>
+        </div>
+        
+        <div class="signature">
+            <p>توقيع الطبيب/الصيدلي: ________________</p>
+            <p>التاريخ: ________________</p>
+        </div>
+        
+        <div class="print-footer">
+            <p>هذه الوصفة لأغراض إرشادية فقط - يرجى استشارة الطبيب قبل الاستخدام</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
